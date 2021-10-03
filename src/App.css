@@ -1,38 +1,67 @@
-.App {
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;900&display=swap');
+body {
+  background-color: #194350;
+  font-family: 'Noto Sans JP', sans-serif;
+  font-weight: 300;
+}
+header {
+  /* background-color: #194350; */
+  padding: 1%;
+}
+
+hr {
+  border-style: none;
+  width: 60%;
+  background-color: #DBF6E9;
+  height: 2px;
+}
+
+.title {
+  color: #DBF6E9;
+  font-size: 2rem;
   text-align: center;
+  font-weight: 900;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.caption {
+  margin-top: 5%;
+  margin-left: 15%;
+  font-size: 1.5rem;
+  color: #DBF6E9;
+  font-weight: bold;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.list-city-name {
+  margin: 0% 15%;
+}
+.item {
+  width: 10%;
+  display: inline-block;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+input[type="checkbox"] {
+  color: #194350;
 }
 
-.App-link {
-  color: #61dafb;
+.city-name {
+  color: #CDF0EA;
+  font-weight: 300;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.city-name:hover {
+  font-weight: bold;
+}
+
+.chart {
+  margin: 5% 10%;
+  width: 80%;
+  
+  /* padding-top: 5%;
+  background-color: aliceblue;
+  width: 80%;
+  border-radius: 2rem; */
+}
+
+.year {
+  color: #194350;
 }
