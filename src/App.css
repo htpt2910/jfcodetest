@@ -34,21 +34,14 @@ hr {
 .list-city-name {
   margin: 0% 15%;
 }
-.item {
+
+label {
   width: 10%;
   display: inline-block;
-}
-
-input[type="checkbox"] {
-  color: #194350;
-}
-
-.city-name {
   color: #CDF0EA;
-  font-weight: 300;
 }
 
-.city-name:hover {
+label:hover {
   font-weight: bold;
 }
 
