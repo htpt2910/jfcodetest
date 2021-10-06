@@ -55,7 +55,6 @@ const cityNames = [
 function useCheckboxes() {
     const cities = cityNames.map((checkbox, index) => ({
         name: checkbox,
-        checked: false,
         id: index,
     }));
     return cities;

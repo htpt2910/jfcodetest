@@ -14,8 +14,9 @@ function Item( props ) {
         <label>
           <input
             type="checkbox"
-            checked={props.checked}
+            defaultChecked={false}
             onChange={props.onChange}
+  
           />
           {props.cityName}
         </label>

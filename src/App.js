@@ -1,7 +1,9 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable array-callback-return */
 /* eslint-disable no-unused-vars */
 import Item from "./components/item";
 import {
+  Label,
   LineChart,
   CartesianGrid,
   XAxis,
@@ -9,19 +11,28 @@ import {
   Tooltip,
   Legend,
   Line,
+  ResponsiveContainer
 } from "recharts";
 import React from "react";
 import { useEffect, useState } from "react";
 import "./App.css";
 import useCheckboxes from "./components/checkboxes";
-// import { adaptEventHandlers } from "recharts/types/util/types";
 
 
 function App() {
 
+  var result, val;
+  const years = ['1970', '1980', '1990', '2000', '2010', '2020', '2030'];
+  var values = [];
+  var arr = [];
+  var datas = [];
+  // var datas = [{
+  //   name : '',
+  //   populations : []
+  // }]
 
-  function fetchData(prefCode, cityCode) {
-    fetch(
+  async function fetchData(prefCode, index) {
+    return fetch( 
       `https://opendata.resas-portal.go.jp/api/v1/population/composition/perYear?prefCode=${prefCode}`,
       {
         headers: {
@@ -36,57 +47,74 @@ function App() {
           status: response.status,
         }))
         .then((res) => {
-          var val = res.data.result.data[0];
-          const result = val.data.map((element) => element.value);
-          console.log(result);
+          values = [];
+          val = res.data.result.data[0].data;
+          result = val.filter((element, index) => index >= 2 && index % 2 === 0 && index <= 14);
+          result.forEach(item => values.push(item.value));
+          for(let j = 0; j < years.length; j++) {
+              arr[j][index] = values[j];
+          }
         })
     );
   }
 
-  // function execute(state){ //TODO
-  //   for(var i=0; i < state.length; i++){
-  //     if (state[i] == checked){
-  //       fetchData(i);
-  //     }
-  //   }
-      
-  // }
+  const checkboxes = useCheckboxes();
 
-  const [isCheck, setIsCheck] = useState(false);
   const [prefCodes, setPrefCodes] = useState([]);
+  var prefCodesArray = [];
 
-  const isCheckArray = [];
-  function handleChange(event, index){
-    setIsCheck(event.target.checked);  //TODO
-    console.log(isCheck);
-    // console.log(index);
-    // index = index + 1;
-    // console.log("is check in handler : " + isCheck)
-    // if(isCheck)
-    //   setPrefCodes(preCodes => [...preCodes, index]);
+  const [checkedState, setCheckedState] = useState(
+    new Array(checkboxes.length).fill(false)
+  );
 
-    // console.log(prefCodes);
+  const handleChange = (position) => {
+  
+    const updatedCheckedState = checkedState.map((item, index) => {
+      return index === position ? !item : item
+    });
+
+    setCheckedState(updatedCheckedState);
+    prefCodesArray = [];
+    var i = 0;
+    updatedCheckedState.map((item, index) => {
+      i+=1;
+      return item ? prefCodesArray[i] = index + 1 : console.log("nothing")
+    }) 
+    prefCodesArray = prefCodesArray.filter(e=>e)
+    
+    setPrefCodes([...prefCodesArray]);
   }
 
-  // const [state, setState] = useState([]); // TODO 
-  // useEffect(() => execute(prefCodes), []);
+  useEffect(() => {
+    async function temptemp(){
+      for(var i=0; i < prefCodes.length; i++){
+        await fetchData(prefCodes[i], i);
+      }
 
-  const data = [
-    {
-      name: "",
-      uv: 4000,
-      pv: 2400,
-      amt: 2400,
-    },
-    {
-      name: "1980",
-      uv: 3000,
-      pv: 1398,
-      amt: 2210,
+      console.log(arr);
+      for (let x = 0; x < years.length; x++) {
+          datas.push({
+            name : years[x],
+            populations : arr[x]
+          })
+      }
+      // datas.shift()
+      // datas[0].name = '' 
+      setData([...datas])
     }
-  ];
+    temptemp();
 
-  const checkboxes = useCheckboxes();
+  }, [prefCodes]); 
+  for (let i = 0; i < years.length; i++) {
+    for (let j = 0; j < prefCodes.length; j++) {
+      arr[i] = [];
+    }
+  }
+
+  const [data, setData] = useState([{
+    name : '',
+    populations : []
+  }])
 
   return (
     <div className="App">
@@ -97,30 +125,43 @@ function App() {
       <p className="caption">都道府県</p>
       <div className="list-city-name">
         <div>
-          {checkboxes.map((item, index) => 
-            <Item key={index} id={index} check={item.checked} cityName={item.name} onChange={(event) => {
-              handleChange(event,index);
+          {checkboxes.map((item, index) => {
+            return <Item key={index} id={index} checked={checkedState[index]} cityName={item.name} onChange={() => {
+              handleChange(index);
             }}/>
-          )}
+          })}
         </div>
       </div>
-        {/* <div className="chart">
+      <div className="chart-container">
+        <ResponsiveContainer width="100%" aspect={3}>
           <LineChart
-            width={1000}
+            width={500}
             height={300}
             data={data}
-            margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
+            margin={{
+              top: 5,
+              right: 30,
+              left: 20,
+              bottom: 5,
+            }}
           >
             <CartesianGrid strokeDasharray="3 3" />
-            <XAxis className="year" dataKey="name" />
-            <YAxis />
+            <XAxis dataKey="name" />
+              {/* <Label value="Pages of my website" offset={0} position="insideBottom" /> */}
+            {/* </XAxis> */}
+            <YAxis type="number" domain={[0, 6000000]}/>
             <Tooltip />
             <Legend />
-            <Line type="monotone" dataKey="pv" stroke="#8884d8" />
-            <Line type="monotone" dataKey="uv" stroke="#82ca9d" />
+            
+            {data.map(dt => {
+              if (typeof(dt.populations) !== "undefined"){
+                console.log(data);
+                return dt.populations.map( (value, index) =>  <Line type="monotone"  dataKey={value} stroke={"#" + Math.floor(Math.random()*16777215).toString(16)} activeDot={{ r: 8 }} />)
+              }
+            })}
           </LineChart>
-        </div> */}
-        
+        </ResponsiveContainer>
+      </div>
     </div>
   );
 }
