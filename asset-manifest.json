@@ -1,18 +1,18 @@
 {
   "files": {
-    "main.css": "/jfcodetest/react-deploy.git/static/css/main.d2813347.chunk.css",
-    "main.js": "/jfcodetest/react-deploy.git/static/js/main.adb1d56f.chunk.js",
-    "main.js.map": "/jfcodetest/react-deploy.git/static/js/main.adb1d56f.chunk.js.map",
-    "runtime-main.js": "/jfcodetest/react-deploy.git/static/js/runtime-main.a61b86d6.js",
-    "runtime-main.js.map": "/jfcodetest/react-deploy.git/static/js/runtime-main.a61b86d6.js.map",
-    "static/js/2.ca6a6d57.chunk.js": "/jfcodetest/react-deploy.git/static/js/2.ca6a6d57.chunk.js",
-    "static/js/2.ca6a6d57.chunk.js.map": "/jfcodetest/react-deploy.git/static/js/2.ca6a6d57.chunk.js.map",
-    "index.html": "/jfcodetest/react-deploy.git/index.html",
-    "static/css/main.d2813347.chunk.css.map": "/jfcodetest/react-deploy.git/static/css/main.d2813347.chunk.css.map",
-    "static/js/2.ca6a6d57.chunk.js.LICENSE.txt": "/jfcodetest/react-deploy.git/static/js/2.ca6a6d57.chunk.js.LICENSE.txt"
+    "main.css": "/jfcodetest.git/static/css/main.d2813347.chunk.css",
+    "main.js": "/jfcodetest.git/static/js/main.adb1d56f.chunk.js",
+    "main.js.map": "/jfcodetest.git/static/js/main.adb1d56f.chunk.js.map",
+    "runtime-main.js": "/jfcodetest.git/static/js/runtime-main.99352ab6.js",
+    "runtime-main.js.map": "/jfcodetest.git/static/js/runtime-main.99352ab6.js.map",
+    "static/js/2.ca6a6d57.chunk.js": "/jfcodetest.git/static/js/2.ca6a6d57.chunk.js",
+    "static/js/2.ca6a6d57.chunk.js.map": "/jfcodetest.git/static/js/2.ca6a6d57.chunk.js.map",
+    "index.html": "/jfcodetest.git/index.html",
+    "static/css/main.d2813347.chunk.css.map": "/jfcodetest.git/static/css/main.d2813347.chunk.css.map",
+    "static/js/2.ca6a6d57.chunk.js.LICENSE.txt": "/jfcodetest.git/static/js/2.ca6a6d57.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
-    "static/js/runtime-main.a61b86d6.js",
+    "static/js/runtime-main.99352ab6.js",
     "static/js/2.ca6a6d57.chunk.js",
     "static/css/main.d2813347.chunk.css",
     "static/js/main.adb1d56f.chunk.js"
