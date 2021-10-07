@@ -122,12 +122,13 @@ function App() {
       <div className="list-city-name">
         <div>
           {checkboxes.map((item, index) => {
-            return <Item key={index} id={index} checked={checkedState[index]} cityName={item.name} onChange={() => {
+            return <Item className="item" key={index} id={index} checked={checkedState[index]} cityName={item.name} onChange={() => {
               handleChange(index);
             }}/>
           })}
         </div>
       </div>
+      
       <div className="chart-container">
         <ResponsiveContainer width="100%" aspect={3}>
           <LineChart
@@ -136,20 +137,18 @@ function App() {
             data={data}
             margin={{
               top: 5,
-              right: 30,
+              right: 20,
               left: 20,
               bottom: 5,
             }}
           >
-            <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="name" >
-              <Label value="Pages of my website" offset={0} position="insideBottom" /> 
-            </XAxis>
-            <YAxis type="number" />
-            <Tooltip />
-            <Legend />
+            <CartesianGrid horizontal="true" vertical=""  />
+            <XAxis dataKey="name" tick={{ fill: '#CDF0EA' }} />
+            <YAxis type="number" tick={ { fill: '#CDF0EA'}}/>
+            <Tooltip contentStyle={ {backgroundColor: '#5E8B7E', color: '#CDF0EA'}} />
+            <Legend className="legend" align="right" verticalAlign="middle" layout="vertical" />
             
-            {prefCodes.map((prefCode, damdang) => {
+            {prefCodes.map((prefCode) => {
               
               return <Line type="monotone"  dataKey={cityNames[prefCode - 1]} stroke={"#" + Math.floor(Math.random()*16777215).toString(16)} activeDot={{ r: 8 }} />
 
@@ -157,6 +156,7 @@ function App() {
           </LineChart>
         </ResponsiveContainer>
       </div>
+      <h2>1980年から現在までの地域別の人口構造図</h2>
     </div>
   );
 }
