@@ -1,7 +1,3 @@
-// import React, { use} from 'react';
-// import { Checkbox } from '@material-ui/core';
-// import { FormControlLabel } from '@material-ui/core';
-
 const cityNames = [
     "北海道",
     "青森県",
