@@ -16,7 +16,7 @@ import {
 import React from "react";
 import { useEffect, useState } from "react";
 import "./App.css";
-import useCheckboxes from "./components/checkboxes";
+import useCheckboxes, {cityNames} from "./components/checkboxes";
 
 
 function App() {
@@ -26,10 +26,6 @@ function App() {
   var values = [];
   var arr = [];
   var datas = [];
-  // var datas = [{
-  //   name : '',
-  //   populations : []
-  // }]
 
   async function fetchData(prefCode, index) {
     return fetch( 
@@ -49,6 +45,7 @@ function App() {
         .then((res) => {
           values = [];
           val = res.data.result.data[0].data;
+          console.log(val)
           result = val.filter((element, index) => index >= 2 && index % 2 === 0 && index <= 14);
           result.forEach(item => values.push(item.value));
           for(let j = 0; j < years.length; j++) {
@@ -80,7 +77,7 @@ function App() {
       i+=1;
       return item ? prefCodesArray[i] = index + 1 : console.log("nothing")
     }) 
-    prefCodesArray = prefCodesArray.filter(e=>e)
+    prefCodesArray = prefCodesArray.filter(e=>e);
     
     setPrefCodes([...prefCodesArray]);
   }
@@ -92,29 +89,28 @@ function App() {
       }
 
       console.log(arr);
-      for (let x = 0; x < years.length; x++) {
-          datas.push({
-            name : years[x],
-            populations : arr[x]
-          })
+      if (arr.length > 0){
+        for (let x = 0; x < years.length; x++) {
+          let temp = {};
+          temp["name"] = years[x];
+          arr[x].forEach((elem, index) => temp[cityNames[prefCodes[index] - 1]] = elem);
+          datas.push(temp);
+        }
       }
-      // datas.shift()
-      // datas[0].name = '' 
+
       setData([...datas])
     }
     temptemp();
 
   }, [prefCodes]); 
+
   for (let i = 0; i < years.length; i++) {
     for (let j = 0; j < prefCodes.length; j++) {
       arr[i] = [];
     }
   }
 
-  const [data, setData] = useState([{
-    name : '',
-    populations : []
-  }])
+  const [data, setData] = useState([{}])
 
   return (
     <div className="App">
@@ -146,18 +142,17 @@ function App() {
             }}
           >
             <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="name" />
-              {/* <Label value="Pages of my website" offset={0} position="insideBottom" /> */}
-            {/* </XAxis> */}
-            <YAxis type="number" domain={[0, 6000000]}/>
+            <XAxis dataKey="name" >
+              <Label value="Pages of my website" offset={0} position="insideBottom" /> 
+            </XAxis>
+            <YAxis type="number" />
             <Tooltip />
             <Legend />
             
-            {data.map(dt => {
-              if (typeof(dt.populations) !== "undefined"){
-                console.log(data);
-                return dt.populations.map( (value, index) =>  <Line type="monotone"  dataKey={value} stroke={"#" + Math.floor(Math.random()*16777215).toString(16)} activeDot={{ r: 8 }} />)
-              }
+            {prefCodes.map((prefCode, damdang) => {
+              
+              return <Line type="monotone"  dataKey={cityNames[prefCode - 1]} stroke={"#" + Math.floor(Math.random()*16777215).toString(16)} activeDot={{ r: 8 }} />
+
             })}
           </LineChart>
         </ResponsiveContainer>

@@ -50,7 +50,7 @@ const cityNames = [
     "宮崎県",
     "鹿児島県",
     "沖縄県",
-];
+];   
 
 function useCheckboxes() {
     const cities = cityNames.map((checkbox, index) => ({
@@ -61,3 +61,4 @@ function useCheckboxes() {
 }
 
 export default useCheckboxes;
+export {cityNames};
